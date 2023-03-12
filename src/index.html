@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -16,17 +16,17 @@
         <div class="container">
             <form id='form'>
                 <label class='label' for="name">Имя:</label>
-                <input class='input input__name' name='name' type="text" placeholder="Введите свое имя">
+                <input class='input input__name' required name='name' type="text" placeholder="Введите свое имя">
                 
-                <label class='label' for="comment">Комментарий:</label>
-                <textarea class='input input__textarea' name="textarea" id="" cols="15" rows="7" placeholder="Ведите текст комментария"></textarea>
+                <label class='label' for="textarea">Комментарий:</label>
+                <textarea class='input input__textarea' required name="textarea" id="" cols="15" rows="7" placeholder="Введите текст комментария"></textarea>
                 
                 <label class='label' for="date">Дата:</label>
                 <input class='input input__date' type="date" name="time" id="time" value="">
                 
-                <input class='input input__btn' type="submit" value="Отправить">
+                <button class='input input__btn' type="submit">Отправить</button>
             </form>
-            
+            <div class="comments-container"></div>
             <script src="script.js"></script>
         </div>
     </main>

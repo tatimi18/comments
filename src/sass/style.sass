@@ -2,6 +2,10 @@
     margin: 0
     padding: 0
     box-sizing: border-box
+    //-ms-hyphens: auto
+    //-webkit-hyphens: auto
+    //hyphens: auto
+    //hyphenate-limit-chars: 6 3 2
 
 html, body
     font-size: 18px
@@ -29,7 +33,7 @@ html, body
     &__date
         width: 200px
     &__btn
-        margin-top: 30px
+        margin: 30px 0 50px 0
         width: 200px
         cursor: pointer
 
@@ -39,5 +43,59 @@ html, body
 .error
     padding-top: 5px
     color: red
+
+.comment
+    margin: 20px 0
+    display: flex
+    position: relative
+    align-items: flex-start
+    &__wrapper
+        width: 650px
+        margin: 0 0 20px 20px
+        padding: 20px 40px 20px 20px
+        background-color: white
+        border-radius: 5px 40px 40px 40px
+    &__content
+        //width: 265px
+        display: flex
+        align-items: flex-end
+.user
+    width: 60px
+.name
+    font-weight: 600
+.text
+    padding-top: 5px
+.date
+    padding-left: 10px
+    font-weight: 300
+    font-size: 17px
+
+.like
+    background: url('../icons/like.svg') center (center/cover) no-repeat
+    width: 36px
+    height: 32px
+    position: absolute
+    left: 707px
+    bottom: 20px
+    cursor: pointer
+    transition: 0.5s all
+    //&:hover
+        //background: url('../icons/like-hover.svg') center (center/cover) no-repeat
+    &__active
+        background: url('../icons/like-active.svg') center (center/cover) no-repeat
+
+.trash
+    background: url('../icons/trash.svg') center (center/cover) no-repeat
+    top: 0
+    left: 710px
+    position: absolute
+    width: 32px
+    height: 36px
+    cursor: pointer
+    transition: 0.5s all
+    &:hover
+        background: url('../icons/trash-hover.svg') center (center/cover) no-repeat
+
+    
 
 

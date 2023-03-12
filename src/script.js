@@ -1,12 +1,13 @@
 let form = document.forms.form;
-let inputs = form.elements;
+let commentsContainer = document.querySelector('.comments-container');
 
 form.addEventListener('click', function(event) {
     let target = event.target;
     
     if (target.className.includes('name') || target.className.includes('textarea')) {
         target.onblur = function() {
-            return validate(target, target.value.length);
+            return validate(target, target.value, target.value.length);
+
         };
 
         target.onfocus = function() {
@@ -15,17 +16,27 @@ form.addEventListener('click', function(event) {
     };
 });
 
-form.addEventListener('submit', postForm)
+form.addEventListener('submit', postForm);
 
-function validate(elem, lengtn) {
-    if (lengtn < 2) {
+commentsContainer.addEventListener('click', actionInComment);
+
+function validate(elem, value, lengtn) {
+    let error = document.createElement('div');
+    error.className = 'error';
+
+    if (!value) {
         elem.classList.add('invalid');
         
-        let error = document.createElement('div');
-        error.className = 'error';
+        error.innerHTML = 'Заполните это поле';
+        elem.after(error);
+    } else if (lengtn < 2) {
+        elem.classList.add('invalid');
+        
         error.innerHTML = 'Введите хотя бы 2 символа';
         elem.after(error);
     }; 
+    
+  
 };
 
 function removeError(elem) {
@@ -43,7 +54,10 @@ function postForm(event) {
     let data = serializeForm(form)
     //вычленяем информацию
     let result = getValues(data);
+    //отправляем коммент
     makeComment(result)
+    //очищаем форму
+    clearForm(this);
 };
 
 function serializeForm(formNode) {
@@ -87,46 +101,84 @@ function gettingDate(date) {
     let hour = result.getHours()
     let minutes = result.getMinutes()
 
+    let now = new Date();
+    let theDayBefore = now.getDate() - day;
+
+    let nowHour = now.getHours();
+    let nowMinuts = now.getMinutes();
+
     if (day < 10) {
         day = '0' + day
-    }
+    };
 
     if (month < 10) {
         month = '0' + month
-    }
-
+    };
 
     if (hour < 10) {
         hour = '0' + hour
-    }
+    };
 
     if (minutes < 10) {
         minutes = '0' + minutes
-    }
+    };
 
-    let now = new Date();
-    let theDayBefore = now.getDate() - day;
+    if (nowHour < 10) {
+        nowHour = '0' + nowHour
+    };
+
+    if (nowMinuts < 10) {
+        nowMinuts = '0' + nowMinuts
+    };
+
     
 
     if (day == now.getDate() && month == now.getMonth()) {
-        result = `сегодня, ${hour}:${minutes}`;
+        result = `сегодня в ${hour}:${minutes}`;
     } else if (theDayBefore == 1  && month == now.getMonth()) {
-        result = `вчера, ${hour}:${minutes}`;
+        result = `вчера в ${nowHour}:${nowMinuts}`;
     } else {
-        result = `${day}.${month}.${year}, ${hour}:${minutes}`
+        result = `${day}.${month}.${year} в ${nowHour}:${nowMinuts}`
     };
 
     return result;
 };
 
 function makeComment(result) {
-    let wrapper = document.createElement('div');
-    wrapper.className = 'comment-wrapper';
-    form.after(wrapper);
-    wrapper.insertAdjacentHTML("afterbegin", `
-    <div class="name">${result.name}</div>
-    <div class="text">${result.text}</div>
-    <div class="date">${result.date}</div>`)
+    let container = document.querySelector('.comments-container');
+    container.insertAdjacentHTML("afterbegin", `
+    <div class="comment">
+                <img src="icons/person.svg" alt="user" class="user">
+                <div class="comment__wrapper">
+                    <div class="comment__content">
+                        <div class="name">${result.name}</div>
+                        <div class="date">${result.date}</div>
+                    </div>
+                    <div class="text">${result.text}</div>
+                </div>
+                <div class="like"></div>
+                <div class="trash"></div>
+            </div>`)
+};
+
+function clearForm(form) {
+    let elements = form.elements;
+    for (let element of elements) {
+        element.value = '';
+    };
+}
+
+function actionInComment(event) {
+    let target = event.target;
+    let comment = target.closest('.comment');
+    
+    if (target.className == 'trash') {
+        comment.remove();
+    };
+
+    if (target.className.contains = 'like') {
+        target.classList.toggle('like__active');
+    }
 };
 
 
