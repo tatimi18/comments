@@ -35,8 +35,6 @@ function validate(elem, value, lengtn) {
         error.innerHTML = 'Введите хотя бы 2 символа';
         elem.after(error);
     }; 
-    
-  
 };
 
 function removeError(elem) {
@@ -50,14 +48,33 @@ function removeError(elem) {
 function postForm(event) {
     //отменили действие браузера по умолчанию
     event.preventDefault();
-    //собираем данные с формы
-    let data = serializeForm(form)
-    //вычленяем информацию
-    let result = getValues(data);
-    //отправляем коммент
-    makeComment(result)
-    //очищаем форму
-    clearForm(this);
+    
+    if (!isValid(this)) {
+        return;
+    } else {
+        //собираем данные с формы
+        let data = serializeForm(form)
+        //вычленяем информацию
+        let result = getValues(data);
+        //отправляем коммент
+        makeComment(result)
+        //очищаем форму
+        clearForm(this);
+    };
+};
+
+function isValid(form) {
+    let errors = document.querySelectorAll('.error')
+
+    let invalidInputs = form.querySelectorAll('.invalid');
+
+    if (errors.length != 0 || invalidInputs.length != 0) {
+        //проверка не пройдена
+        return false;
+    } else {
+        //проверка пройдена
+        return true;
+    };
 };
 
 function serializeForm(formNode) {
@@ -171,14 +188,16 @@ function clearForm(form) {
 function actionInComment(event) {
     let target = event.target;
     let comment = target.closest('.comment');
-    
+
     if (target.className == 'trash') {
         comment.remove();
     };
 
-    if (target.className.contains = 'like') {
-        target.classList.toggle('like__active');
-    }
+    if (target.className == 'like') {
+        target.classList.add('like__active')
+    } else if (target.className == 'like like__active') {
+        target.classList.remove('like__active')
+    };
 };
 
 
