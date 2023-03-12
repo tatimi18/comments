@@ -148,8 +148,6 @@ function gettingDate(date) {
         nowMinuts = '0' + nowMinuts
     };
 
-    
-
     if (day == now.getDate() && month == now.getMonth()) {
         result = `сегодня в ${hour}:${minutes}`;
     } else if (theDayBefore == 1  && month == now.getMonth()) {
