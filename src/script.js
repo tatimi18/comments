@@ -148,9 +148,9 @@ function gettingDate(date) {
         nowMinuts = '0' + nowMinuts
     };
 
-    if (day == now.getDate() && month == now.getMonth()) {
+    if (day == now.getDate() && month == now.getMonth() && year == now.getFullYear()) {
         result = `сегодня в ${hour}:${minutes}`;
-    } else if (theDayBefore == 1  && month == now.getMonth()) {
+    } else if (theDayBefore == 1  && month == now.getMonth() && year == now.getFullYear()) {
         result = `вчера в ${nowHour}:${nowMinuts}`;
     } else {
         result = `${day}.${month}.${year} в ${nowHour}:${nowMinuts}`
@@ -191,10 +191,8 @@ function actionInComment(event) {
         comment.remove();
     };
 
-    if (target.className == 'like') {
-        target.classList.add('like__active')
-    } else if (target.className == 'like like__active') {
-        target.classList.remove('like__active')
+    if (target.className.includes('like')) {
+        target.classList.toggle('like__active')
     };
 };
 
