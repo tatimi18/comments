@@ -113,10 +113,13 @@ function gettingDate(date) {
     };
 
     let day = result.getDate();
-    let month = result.getMonth()
-    let year = result.getFullYear()
-    let hour = result.getHours()
-    let minutes = result.getMinutes()
+    let month = result.getMonth();
+    console.log(month);
+    month = result.getMonth() + 1;
+    console.log(month);
+    let year = result.getFullYear();
+    let hour = result.getHours();
+    let minutes = result.getMinutes();
 
     let now = new Date();
     let theDayBefore = now.getDate() - day;
@@ -148,9 +151,9 @@ function gettingDate(date) {
         nowMinuts = '0' + nowMinuts
     };
 
-    if (day == now.getDate() && month == now.getMonth() && year == now.getFullYear()) {
+    if (day == now.getDate() && month == (now.getMonth() + 1) && year == now.getFullYear()) {
         result = `сегодня в ${hour}:${minutes}`;
-    } else if (theDayBefore == 1  && month == now.getMonth() && year == now.getFullYear()) {
+    } else if (theDayBefore == 1  && month == (now.getMonth() + 1) && year == now.getFullYear()) {
         result = `вчера в ${nowHour}:${nowMinuts}`;
     } else {
         result = `${day}.${month}.${year} в ${nowHour}:${nowMinuts}`
